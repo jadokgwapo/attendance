@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance</title>
+    <style>
+        body { font-family: Arial; background: #f2f2f2; padding: 20px; }
+        .container {
+            max-width: 500px; margin: auto; background: white;
+            padding: 20px; border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input, select {
+            width: 100%; padding: 10px; margin: 10px 0;
+            border: 1px solid #ccc; border-radius: 4px;
+        }
+        button {
+            width: 100%; padding: 12px; background: #0066cc;
+            color: white; border: none; border-radius: 5px;
+        }
+        button:hover { background: #004c99; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Record Attendance</h2>
+
+    <form action="/attendance" method="POST">
+        <input type="text" name="student_id" placeholder="Student ID" required>
+
+        <select name="status" required>
+            <option value="">-- Select Status --</option>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+            <option value="Late">Late</option>
+        </select>
+
+        <button type="submit">Submit Attendance</button>
+    </form>
+</div>
+
+</body>
+</html>

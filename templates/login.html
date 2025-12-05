@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --indigo: #6366f1;
+            --indigo-dark: #4f46e5;
+            --emerald: #10b981;
+            --emerald-dark: #059669;
+            --gray-200: #e5e7eb;
+            --gray-500: #6b7280;
+            --white: #ffffff;
+            --transition: all 0.4s ease;
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #374151;
+        }
+
+        header {
+            background: #1f2937;
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .header-content { max-width:1400px; margin:auto; display:flex; justify-content:space-between; align-items:center; }
+        header h1 { font-size:1.5rem; font-weight:700; }
+
+        .wrapper {
+            max-width: 480px;
+            width: 90%;
+            margin: 3rem auto 5rem;
+            flex: 1;
+        }
+
+        /* SIGN IN - Classic Clean Card */
+        #login-view {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.12);
+            border: 1px solid #e5e7eb;
+        }
+        #login-view .header {
+            background: linear-gradient(135deg, var(--indigo), var(--indigo-dark));
+            padding: 3rem 2rem 2.5rem;
+            text-align: center;
+            color: white;
+        }
+        #login-view .header h2 { font-size:2rem; font-weight:700; margin-bottom:0.5rem; }
+
+        /* SIGN UP - Beautiful Gradient Border (100% compatible) */
+        #signup-view {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(16, 185, 129, 0.25);
+            position: relative;
+           
+            border: 1px solid #e5e7eb;
+        }
+
+        #signup-view .header {
+            background: linear-gradient(135deg, var(--emerald), var(--emerald-dark));
+            padding: 3.5rem 2rem 3rem;
+            text-align: center;
+            color: white;
+            border-radius: 20px 20px 0 0;
+        }
+        #signup-view .header h2 { font-size:2.1rem; font-weight:700; margin-bottom:0.5rem; }
+
+        .body {
+            padding: 2.8rem 2.4rem 3.2rem;
+            background: white;
+            border-radius: 0 0 20px 20px;
+        }
+
+        /* Form styling */
+        .form-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            font-weight:600;
+            font-size:0.95rem;
+            display: block;
+            margin-bottom:0.5rem;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            font-size: 1rem;
+            background: #fafafa;
+            transition: var(--transition);
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--indigo);
+            background: white;
+            box-shadow: 0 0 0 5px rgba(99,102,241,0.15);
+        }
+
+        .name-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        @media (max-width: 480px) {
+            .name-row { grid-template-columns: 1fr; }
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 14px;
+            top: 42px;
+            cursor: pointer;
+            color: var(--gray-500);
+            font-size: 1.25rem;
+            user-select: none;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 1.1rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 0.8rem;
+        }
+        #login-view .btn {
+            background: var(--indigo);
+            color: white;
+        }
+        #login-view .btn:hover {
+            background: var(--indigo-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(99,102,241,0.35);
+        }
+        #signup-view .btn {
+            background: var(--emerald);
+            color: white;
+        }
+        #signup-view .btn:hover {
+            background: var(--emerald-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(16,185,129,0.4);
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 2.2rem;
+            font-size: 0.95rem;
+        }
+        .links a {
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        #login-view .links a { color: var(--indigo); }
+        #signup-view .links a { color: var(--emerald); }
+        .links a:hover { text-decoration: underline; }
+
+        footer {
+            background: #111827;
+            color: #9ca3af;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.9rem;
+            margin-top: -30px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-content">
+        <h1>Attendance Management System</h1>
+    </div>
+</header>
+
+<div class="wrapper">
+
+    <!-- SIGN IN -->
+    <div id="login-view">
+        <div class="header">
+            <h2>Welcome Back</h2>
+            <p>Sign in to access your attendance dashboard</p>
+        </div>
+        <div class="body">
+            <form onsubmit="alert('Signed in!'); return false;">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="Enter your email" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="login-pwd" placeholder="Enter your password" required>
+                    <span class="password-toggle" onclick="togglePassword('login-pwd', this)">Show</span>
+                </div>
+                <button type="submit" class="btn">Sign In</button>
+            </form>
+            <div class="links">
+                <p>Don't have an account? <a onclick="showSignup()">Sign up</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SIGN UP - Gradient Border (No mask warning!) -->
+    <div id="signup-view" style="display:none;">
+        <div class="header">
+            <h2>Create Account</h2>
+            <p>Join the Attendance Management System</p>
+        </div>
+        <div class="body">
+            <form onsubmit="handleSignup(event)">
+                <div class="name-row">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" id="first-name" placeholder="Juan" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" id="last-name" placeholder="Dela Cruz" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="signup-email" placeholder="juan@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="signup-pwd" placeholder="Create strong password" required minlength="8">
+                    <span class="password-toggle" onclick="togglePassword('signup-pwd', this)">Show</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="confirm-pwd" placeholder="Confirm password" required>
+                    <span class="password-toggle" onclick="togglePassword('confirm-pwd', this)">Show</span>
+                </div>
+
+                <button type="submit" class="btn">Sign Up</button>
+            </form>
+            <div class="links">
+                <p>Already have an account? <a onclick="showLogin()">Sign in</a></p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    Copyright © 2025 Juan Dela Cruz • Attendance Management System v2.0
+</footer>
+
+<script>
+    function showSignup() {
+        document.getElementById('login-view').style.display = 'none';
+        document.getElementById('signup-view').style.display = 'block';
+    }
+
+    function showLogin() {
+        document.getElementById('signup-view').style.display = 'none';
+        document.getElementById('login-view').style.display = 'block';
+    }
+
+    function togglePassword(id, el) {
+        const field = document.getElementById(id);
+        el.textContent = field.type === 'password' ? 'Hide' : 'Show';
+        field.type = field.type === 'password' ? 'text' : 'password';
+    }
+
+    function handleSignup(e) {
+        e.preventDefault();
+        const pwd = document.getElementById('signup-pwd').value;
+        const confirm = document.getElementById('confirm-pwd').value;
+        if (pwd !== confirm) return alert('Passwords do not match!');
+        if (pwd.length < 8) return alert('Password must be at least 8 characters');
+
+        const name = document.getElementById('first-name').value + ' ' + document.getElementById('last-name').value;
+        alert(`Welcome ${name}!\nAccount created successfully!`);
+    }
+</script>
+
+</body>
+</html>

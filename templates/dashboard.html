@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard • Attendance Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --success: #10b981;
+            --danger: #ef4444;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+            --white: #ffffff;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+            color: #374151;
+            min-height: 100vh;
+        }
+        header {
+            background: var(--gray-800);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .logout-btn {
+            background: var(--danger);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        .welcome-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .welcome-card h1 { font-size: 2rem; color: var(--primary); }
+        .current-time {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin: 1rem 0;
+        }
+        .checkin-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 1.2rem 3rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(16,185,129,0.3);
+            transition: all 0.3s;
+        }
+        .checkin-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(16,185,129,0.4);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        .stat-card h3 { font-size: 2.5rem; margin: 0.5rem 0; }
+        .stat-card p { color: var(--gray-600); margin-top: 0.5rem; }
+        table {
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+        }
+        th {
+            background: var(--primary);
+            color: white;
+        }
+        tr:nth-child(even) { background: var(--gray-100); }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #6b7280;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-content">
+        <h1>Attendance Management System</h1>
+        <div class="user-info">
+            <span>Welcome, <strong>Juan Dela Cruz</strong></span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="welcome-card">
+        <h1>Good Morning, Juan!</h1>
+        <div class="current-time" id="clock"></div>
+        <p>Friday, December 5, 2025</p>
+        <button class="checkin-btn" onclick="checkInOut()">
+            Check In Now
+        </button>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card" style="border-left: 6px solid var(--success);">
+            <h3>24</h3>
+            <p>Present This Month</p>
+        </div>
+        <div class="stat-card" style="border-left: 6px solid #f59e0b;">
+            <h3>1</h3>
+            <p>Late</p>
+        </div>
+        <div class="stat-card" style="border-left: 6px solid var(--danger);">
+            <h3>0</h3>
+            <p>Absent</p>
+        </div>
+        <div class="stat-card" style="border-left: 6px solid var(--primary);">
+            <h3>98%</h3>
+            <p>Attendance Rate</p>
+        </div>
+    </div>
+
+    <h2 style="margin: 2.5rem 0 1rem;">Recent Attendance</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Check In</th>
+                <th>Check Out</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Dec 5, 2025</td><td>08:55 AM</td><td>—</td><td><span style="color:var(--success);font-weight:600;">Present</span></td></tr>
+            <tr><td>Dec 4, 2025</td><td>08:45 AM</td><td>5:12 PM</td><td>Present</td></tr>
+            <tr><td>Dec 3, 2025</td><td>09:15 AM</td><td>5:30 PM</td><td><span style="color:#f59e0b;">Late</span></td></tr>
+            <tr><td>Dec 2, 2025</td><td>08:50 AM</td><td>5:05 PM</td><td>Present</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    Copyright © 2025 Juan Dela Cruz • Attendance Management System v2.0
+</footer>
+
+<script>
+    // Live clock
+    function updateClock() {
+        const now = new Date();
+        document.getElementById('clock').textContent = now.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Check in/out button (demo)
+    let checkedIn = false;
+    function checkInOut() {
+        if (!checkedIn) {
+            alert('Checked in at ' + new Date().toLocaleTimeString());
+            document.querySelector('.checkin-btn').textContent = 'Check Out';
+            document.querySelector('.checkin-btn').style.background = '#dc2626';
+            checkedIn = true;
+        } else {
+            alert('Checked out at ' + new Date().toLocaleTimeString());
+            document.querySelector('.checkin-btn').textContent = 'Check In Now';
+            document.querySelector('.checkin-btn').style.background = 'var(--success)';
+            checkedIn = false;
+        }
+    }
+
+    function logout() {
+        if (confirm('Are you sure you want to log out?')) {
+            window.location.href = 'login.html'; // or your login page
+        }
+    }
+</script>
+
+</body>
+</html>
